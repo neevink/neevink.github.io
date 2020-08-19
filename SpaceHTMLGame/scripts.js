@@ -1,9 +1,8 @@
 // Sends event to client
 vkBridge.send("VKWebAppInit", {});
-vkBridge.send("VKWebAppGetUserInfo");
 
 vkBridge
-	.send('VKWebAppGetUserInfo', {user_id:172170927})
+	.send('VKWebAppGetUserInfo', 172170927)
 	.then(data => {
 	  // Handling received data
 	  console.log(data);
