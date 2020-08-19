@@ -2,7 +2,7 @@
 vkBridge.send("VKWebAppInit", {});
 
 vkBridge
-	.send('VKWebAppGetUserInfo', 172170927)
+	.send('VKWebAppGetUserInfo')
 	.then(data => {
 	  // Handling received data
 	  console.log(data);
