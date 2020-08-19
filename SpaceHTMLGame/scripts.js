@@ -1,3 +1,18 @@
+// Sends event to client
+vkBridge.send("VKWebAppInit", {});
+vkBridge.send("VKWebAppGetUserInfo");
+
+vkBridge
+	.send('VKWebAppGetUserInfo')
+	.then(data => {
+	  // Handling received data
+	  console.log(data);
+	})
+	.catch(error => {
+	  // Handling an error
+	  console.log("Something went wrong");
+	});
+
 const cnvs = document.getElementById("main-canvas"),
 	ctx     = cnvs.getContext('2d');
 ctx.font = "35px Roboto";
