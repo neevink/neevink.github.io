@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Game</title>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet"> 
+</head>
+<body>
+	<div>
+		<canvas id="main-canvas" width="400" height="600"></canvas>
+		<button id="shop-menu" class="shop-menu" onclick="shopClick(); this.blur();">shop</button>
+		<button id="back-menu" class="shop-menu" onclick="backClick(); this.blur();">back</button> 
+		<button id="replay-menu" class="replay-menu" onclick="replayClick(); this.blur();">replay</button> 
+	</div>
+	<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+	<script type="text/javascript" src="web.js"></script>
+	<script type="text/javascript" src="game.js"></script>
+</body>
+</html>
