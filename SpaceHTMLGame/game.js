@@ -24,25 +24,25 @@ function loadSaves(){
 			user.highScore = data.keys.highScore;
 		})
 		.catch(error => {
-			console.log(error);
+			console.log("Something went wrong");
 		});
 }
 
 function saveSaves(){
-	vkBridge.send("VKWebAppStorageSet", {"key": "totalScore", "value": user.totalScore})
+	vkBridge.send("VKWebAppStorageSet", {"key": "totalScore", "value": user.totalScore.toString()})
 		.then(data => {
 			console.log("Success!");
 		})
 		.catch(error => {
-			console.log(error);
+			console.log("Something went wrong");
 		});
 
-	vkBridge.send("VKWebAppStorageSet", {"key": "highScore", "value": user.highScore})
+	vkBridge.send("VKWebAppStorageSet", {"key": "highScore", "value": user.highScore.toString()})
 		.then(data => {
 			console.log("Success!");
 		})
 		.catch(error => {
-			console.log(error);
+			console.log("Something went wrong");
 		});
 }
 
