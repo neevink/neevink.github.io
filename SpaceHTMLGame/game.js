@@ -21,8 +21,8 @@ function loadSaves(){
 	vkBridge.send("VKWebAppStorageGet", {"keys": ["totalScore", "highScore"]})
 		.then(data => {
 			console.log(data);
-			user.totalScore = data.keys.totalScore;
-			user.highScore = data.keys.highScore;
+			user.totalScore = data.keys[0].value;
+			user.highScore = data.keys[1].value;
 		})
 		.catch(error => {
 			console.log("Something went wrong");
