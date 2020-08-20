@@ -18,25 +18,21 @@ vkBridge
 	});
 
 function loadSaves(){
+	function checkIsNumber(x) {
+	  	if (isNaN(parseInt(x))){
+	  		return 0;
+	  	}
+	  	else{
+	  		return parseInt(x);
+	  	}
+	}
+
 	vkBridge.send("VKWebAppStorageGet", {"keys": ["totalScore", "highScore"]})
 		.then(data => {
 			console.log(data);
 
-			if (Number.isInteger(data.keys[0].value)) {
-  				user.totalScore = parseInt(data.keys[0].value);
-  			}
-  			else{
-  				user.totalScore = 0;
-  			}
-
-  			if(Number.isInteger(data.keys[1].value)){
-  				user.highScore = parseInt(data.keys[1].value);
-  			}
-  			else{
-  				user.highScore = 0;
-  			}
-
-
+  			user.totalScore = checkIsNumber(data.keys[0].value);
+  			user.highScore = checkIsNumber(data.keys[1].value);
 
 			total = user.totalScore;
 			highScore = user.highScore;
