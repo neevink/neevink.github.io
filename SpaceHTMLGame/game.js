@@ -24,7 +24,7 @@ function loadSaves(){
 			user.highScore = data.keys.highScore;
 		})
 		.catch(error => {
-			console.log("Something went wrong");
+			console.log(error);
 		});
 }
 
@@ -34,7 +34,7 @@ function saveSaves(){
 			console.log("Success!");
 		})
 		.catch(error => {
-			console.log("Something went wrong");
+			console.log(error);
 		});
 
 	vkBridge.send("VKWebAppStorageSet", {"key": "highScore", "value": user.highScore})
@@ -42,7 +42,7 @@ function saveSaves(){
 			console.log("Success!");
 		})
 		.catch(error => {
-			console.log("Something went wrong");
+			console.log(error);
 		});
 }
 
