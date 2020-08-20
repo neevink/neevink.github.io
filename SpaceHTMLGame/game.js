@@ -164,9 +164,19 @@ function Meteorite() {
 	this.direction.y = target.y / magn;
 };
 
+var firstPauseFrame = false;
+
 //Frame
 function update(){
 	if(pause){
+		if(firstPauseFrame){
+			user.totalScore = total;
+			user.highScore = highScore;
+
+
+			firstPauseFrame = false;
+			saveSaves();
+		}
 
 		if(!shop){
 			shopButton.style.visibility = 'visible';
@@ -205,42 +215,44 @@ function update(){
 			cahangeDirection();
 		}
 	}
-
-	for(i = 0; i < meteorites.length; i++){
-		if(meteorites[i].enable){
-			meteorites[i].angle+=meteorites[i].rotationSpeed;
-			meteorites[i].x += meteorites[i].direction.x * meteorites[i].speed;
-			meteorites[i].y += meteorites[i].direction.y * meteorites[i].speed;
-
-			if(spaceship.enable && magnitude(spaceship.x - meteorites[i].x, spaceship.y - meteorites[i].y) < 35){
-				meteorites[i].enable = false;
-				if(meteorites[i].isCoin){
-					score+=10;
-				}
-				else{
-					spaceship.enable = false;
-					meteorites[i].enable = false;
+	if(!pause){
+		for(i = 0; i < meteorites.length; i++){
+			if(meteorites[i].enable){
+				meteorites[i].angle+=meteorites[i].rotationSpeed;
+				meteorites[i].x += meteorites[i].direction.x * meteorites[i].speed;
+				meteorites[i].y += meteorites[i].direction.y * meteorites[i].speed;
 	
-					pause = true;
-					if(score > highScore){
-						highScore = score;
-						isRecord = true;
+				if(spaceship.enable && magnitude(spaceship.x - meteorites[i].x, spaceship.y - meteorites[i].y) < 35){
+					meteorites[i].enable = false;
+					if(meteorites[i].isCoin){
+						score+=10;
 					}
 					else{
-						isRecord = false;
+						spaceship.enable = false;
+						meteorites[i].enable = false;
+						
+						firstPauseFrame = true;
+						pause = true;
+						if(score > highScore){
+							highScore = score;
+							isRecord = true;
+						}
+						else{
+							isRecord = false;
+						}
+	
+						total += score;
 					}
-
-					total += score;
 				}
-			}
-
-			if(!pause && !meteorites[i].receivedCoin && meteorites[i].y > spaceship.y + 50){
-				meteorites[i].receivedCoin = true;
-				score++;
-			}
-
-			if(!pause && meteorites[i].y > cnvs.height + 50){
-				meteorites[i].enable = false;
+	
+				if(!pause && !meteorites[i].receivedCoin && meteorites[i].y > spaceship.y + 50){
+					meteorites[i].receivedCoin = true;
+					score++;
+				}
+	
+				if(!pause && meteorites[i].y > cnvs.height + 50){
+					meteorites[i].enable = false;
+				}
 			}
 		}
 	}
@@ -336,7 +348,7 @@ function backClick(){
 	shop = false;
 }
 
-var highScore = 0, score = 0, pause = true, shop = false, isRecord = false, total = 0;
+var highScore = user.highScore, score = 0, pause = true, shop = false, isRecord = false, total = user.totalScore;
 
 var meteorites = new Array(3);
 meteorites[0] = new Meteorite();
