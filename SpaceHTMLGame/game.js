@@ -23,6 +23,9 @@ function loadSaves(){
 			console.log(data);
 			user.totalScore = data.keys[0].value;
 			user.highScore = data.keys[1].value;
+
+			total = user.totalScore;
+			highScore = user.highScore;
 		})
 		.catch(error => {
 			console.log("Something went wrong");
