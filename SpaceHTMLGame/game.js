@@ -1,3 +1,60 @@
+//WEB
+
+var user = {
+	id:0,
+	totalScore: 0,
+	highScore: 0,
+}
+
+vkBridge.send("VKWebAppInit", {});
+
+vkBridge
+	.send('VKWebAppGetUserInfo', {})
+	.then(data => {
+		user.id = data.id;
+	})
+	.catch(error => {
+		console.log("Something went wrong");
+	});
+
+function loadSaves(){
+	vkBridge.send("VKWebAppStorageGet", {"keys": ["totalScore", "highScore"]})
+		.then(data => {
+			user.totalScore = data.keys.totalScore;
+			user.highScore = data.keys.highScore;
+		})
+		.catch(error => {
+			console.log("Something went wrong");
+		});
+}
+
+function saveSaves(){
+	vkBridge.send("VKWebAppStorageSet", {"key": "totalScore", "value": user.totalScore})
+		.then(data => {
+			console.log("Success!");
+		})
+		.catch(error => {
+			console.log("Something went wrong");
+		});
+
+	vkBridge.send("VKWebAppStorageSet", {"key": "highScore", "value": user.highScore})
+		.then(data => {
+			console.log("Success!");
+		})
+		.catch(error => {
+			console.log("Something went wrong");
+		});
+}
+
+loadSaves();
+console.log(user);
+
+function shareRecord(){
+	vkBridge.send("VKWebAppShowWallPostBox", {"message": "У меня новый рекорд в игре Космическая битва! Мой новый рекорд: " + user.highScore + "! Присоединись: https://vk.com/app7571672_212141958"} );
+}
+
+//GAME
+
 const cnvs = document.getElementById("main-canvas"),
 	ctx     = cnvs.getContext('2d');
 ctx.font = "35px Roboto";
@@ -286,11 +343,7 @@ meteorites[0] = new Meteorite();
 meteorites[1] = new Meteorite();
 meteorites[2] = new Meteorite();
 
-function start(){
-	var autoInterval = setInterval(update, 15);
-	var autoInterval2 = setInterval(makeMeteorite, 1000);
-	document.addEventListener("mousedown", clickSpaceOrMouse);
-	document.addEventListener("keydown", (event) => {if(event.code == 'Space') clickSpaceOrMouse()});
-}
-
-user.loaded = start;
+var autoInterval = setInterval(update, 15);
+var autoInterval2 = setInterval(makeMeteorite, 1000);
+document.addEventListener("mousedown", clickSpaceOrMouse);
+document.addEventListener("keydown", (event) => {if(event.code == 'Space') clickSpaceOrMouse()});
