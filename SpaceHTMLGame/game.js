@@ -356,9 +356,6 @@ function replayClick(){
 
 function shopClick(){
 	shop = true;
-
-	total = 0;
-	highScore = 0;
 }
 
 function backClick(){
