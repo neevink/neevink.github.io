@@ -1,0 +1,28 @@
+body{
+	margin: 0;
+}
+
+button{
+	position: absolute;
+	display: block;
+
+	background-color: #555;
+	color: white;
+	font-size: 16px;
+	padding: 12px 24px;
+	border: none;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
+button:active {
+  background-color: black;
+}
+
+.shop-menu{
+	transform: translate(300px, -60px);
+}
+
+.replay-menu{
+	transform: translate(150px, -250px);
+}
