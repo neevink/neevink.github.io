@@ -70,7 +70,7 @@ function saveSaves(){
 }
 
 function saveRecord(){
-	bridge.sendPromise("VKWebAppCallAPIMethod", {
+	vkBridge.sendPromise("VKWebAppCallAPIMethod", {
         "method": "secure.addAppEvent",
         "params": {
             "user_id": user.id,
