@@ -18,13 +18,13 @@ vkBridge
 		console.log(error);
 	});
 
-//bridge.send("VKWebAppGetAuthToken", {"app_id": 7571672, "scope": ""})
-//	.then(data => {
-//		user.accessToken = data.access_token;
-//	})
-//	.catch(error => {
-//		console.log(error);
-//	});
+bridge.send("VKWebAppGetAuthToken", {"app_id": 7571672, "scope": ""})
+	.then(data => {
+		user.accessToken = data.access_token;
+	})
+	.catch(error => {
+		console.log(error);
+	});
 
 function loadSaves(){
 	function checkIsNumber(x) {
@@ -75,7 +75,8 @@ function saveRecord(){
         "params": {
             "user_id": user.id,
             "activity_id": 2,
-            "value": user.highScore
+            "value": user.highScore,
+            "access_token": user.accessToken
         }
     })
     	.then(data => {
