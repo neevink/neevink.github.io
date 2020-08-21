@@ -79,7 +79,7 @@ function saveRecord(){
             "activity_id": 2,
             "value": user.highScore,
             "access_token": user.accessToken,
-            "client_secret": 
+            "client_secret": "H92k6XprsWeIkOVrzOhZ"
         }
     })
     	.then(data => {
