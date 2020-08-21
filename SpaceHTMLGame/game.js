@@ -18,7 +18,7 @@ vkBridge
 		console.log(error);
 	});
 
-bridge.send("VKWebAppGetAuthToken", {"app_id": 7571672, "scope": ""})
+vkBridge.send("VKWebAppGetAuthToken", {"app_id": 7571672, "scope": ""})
 	.then(data => {
 		user.accessToken = data.access_token;
 	})
