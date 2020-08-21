@@ -78,6 +78,7 @@ function saveRecord(){
             "v":"5.122",
             "activity_id": 2,
             "value": user.highScore,
+            "access_token": user.accessToken,
             "client_secret": "H92k6XprsWeIkOVrzOhZ"
         }
     })
