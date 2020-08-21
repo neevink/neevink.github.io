@@ -21,6 +21,7 @@ vkBridge
 vkBridge.send("VKWebAppGetAuthToken", {"app_id": 7571672, "scope": ""})
 	.then(data => {
 		user.accessToken = data.access_token;
+		console.log(data);
 	})
 	.catch(error => {
 		console.log(error);
@@ -77,7 +78,8 @@ function saveRecord(){
             "v":"5.101",
             "activity_id": 2,
             "value": user.highScore,
-            "access_token": user.accessToken
+            "access_token": user.accessToken,
+            "client_secret": 
         }
     })
     	.then(data => {
