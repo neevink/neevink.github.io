@@ -74,6 +74,7 @@ function saveRecord(){
         "method": "secure.addAppEvent",
         "params": {
             "user_id": user.id,
+            "v":"5.101",
             "activity_id": 2,
             "value": user.highScore,
             "access_token": user.accessToken
