@@ -4,7 +4,7 @@ var user = {
 	id:0,
 	totalScore: 0,
 	highScore: 0,
-	accessToken = null;
+	accessToken = null
 }
 
 vkBridge.send("VKWebAppInit", {});
