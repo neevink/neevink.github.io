@@ -77,7 +77,13 @@ function saveRecord(){
             "activity_id": 2,
             "value": user.highScore
         }
-    });
+    })
+    	.then(data => {
+			console.log(data);
+		})
+		.catch(error => {
+			console.log(error);
+		});;
 }
 
 loadSaves();
@@ -209,6 +215,7 @@ function update(){
 
 			if(isRecord){
 				saveRecord();
+				console.log("saveRecord();");
 			}
 
 			firstPauseFrame = false;
