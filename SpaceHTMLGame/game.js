@@ -101,6 +101,10 @@ function shareRecord(){
 
 const cnvs = document.getElementById("main-canvas"),
 	ctx     = cnvs.getContext('2d');
+
+cnvs.width = window.innerWidth;
+cnvs.height = window.innerHeight;
+
 ctx.font = "35px Roboto";
 
 const shopButton = document.getElementById("shop-menu");
