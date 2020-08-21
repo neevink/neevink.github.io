@@ -7,10 +7,15 @@ var user = {
 	accessToken: null
 }
 
-vkBridge.send("VKWebAppInit", {});
+vkBridge.send("VKWebAppInit", {})
+	.then(data => {
+		console.log(data);
+	})
+	.catch(error => {
+		console.log(error);
+	});
 
-vkBridge
-	.send('VKWebAppGetUserInfo', {})
+vkBridge.send('VKWebAppGetUserInfo', {})
 	.then(data => {
 		user.id = data.id;
 	})
@@ -75,7 +80,7 @@ function saveRecord(){
         "method": "secure.addAppEvent",
         "params": {
             "user_id": user.id,
-            "v":"5.101",
+            "v":"5.122",
             "activity_id": 2,
             "value": user.highScore,
             "access_token": user.accessToken,
