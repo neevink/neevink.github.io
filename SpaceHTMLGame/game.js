@@ -89,8 +89,18 @@ function saveSaves(){
 //		});;
 //}
 
-function shareRecord(){
+function shareRecordClick(){
 	vkBridge.send("VKWebAppShowWallPostBox", {"message": "У меня новый рекорд в игре Космическая битва!\nМой новый рекорд: " + user.highScore + "! Присоединись: https://vk.com/app7571672"} );
+}
+
+function shareRecord(){
+
+}
+
+function leadersClick(){
+	vkBridge.sendPromise("VKWebAppShowLeaderBoardBox", {user_result:highScore})
+		.then(data => console.log(data.success))
+        .catch(error => console.log(error));
 }
 
 loadSaves();
@@ -120,16 +130,46 @@ coinImg.src = "graphics/coin.png";
 
 var spaceship = {
 	enable: true,
-	x:cnvs.width/2.0,
-	y:cnvs.height/2.0,
-	w:72,
-	h:72,
+	x: cnvs.width/2.0,
+	y: cnvs.height/2.0,
+	w: cnvs.width*0.18,
+	h: cnvs.width*0.18,
 	directionRight : true,
-	speed:3,
+	speed: cnvs.width/80,
 	img : spaceshipImg,
 	draw: () => {
 		ctx.drawImage(spaceship.img, spaceship.x - spaceship.w/2, spaceship.y - spaceship.h/2, spaceship.w, spaceship.h);
 	}
+};
+
+function Meteorite() {
+	this.enable = false;
+	this.x = getRandomInt(cnvs.width);
+	this.y = -cnvs.width/8;
+	this.w = cnvs.width/8;
+	this.h = cnvs.width/8;
+	this.direction = { x:0, y:0 };
+	this.angle = getRandomInt(360);
+	this.speed = (cnvs.width + cnvs.height) * 0.007;
+	this.rotationSpeed = 3-getRandomInt(6);
+	this.receivedCoin = false;
+	this.isCoin = false;
+	this.img = meteoriteImg;
+	this.draw = function(){
+		ctx.translate(this.x, this.y);
+		ctx.rotate(eulerToRadians(this.angle));
+		ctx.drawImage(this.img, -this.w/2, -this.h/2, this.w, this.h);
+		ctx.rotate(-eulerToRadians(this.angle));
+		ctx.translate(-this.x, -this.y);
+	};
+
+	let target = {
+		x: cnvs.width * 0.3 + getRandomInt(cnvs.width * 0.4) - this.x,
+		y: spaceship.y + spaceship.h/2 - this.y
+	};
+	let magn = magnitude(target.x, target.y);
+	this.direction.x = target.x / magn;
+	this.direction.y = target.y / magn;
 };
 
 var background = {
@@ -180,37 +220,7 @@ var shopMenu = {
 	}
 }
 
-function Meteorite() {
-	this.enable = false;
-	this.x = getRandomInt(cnvs.width);
-	this.y = -50;
-	this.w = 50;
-	this.h = 50;
-	this.direction = { x:0, y:0 };
-	this.angle = getRandomInt(360);
-	this.speed = 5;
-	this.rotationSpeed = 3-getRandomInt(6);
-	this.receivedCoin = false;
-	this.isCoin = false;
-	this.img = meteoriteImg;
-	this.draw = function(){
-		ctx.translate(this.x, this.y);
-		ctx.rotate(eulerToRadians(this.angle));
-		ctx.drawImage(this.img, -this.w/2, -this.h/2, this.w, this.h);
-		ctx.rotate(-eulerToRadians(this.angle));
-		ctx.translate(-this.x, -this.y);
-	};
-
-	let target = {
-		x: cnvs.width * 0.3 + getRandomInt(cnvs.width * 0.4) - this.x,
-		y: spaceship.y + spaceship.h/2 - this.y
-	};
-	let magn = magnitude(target.x, target.y);
-	this.direction.x = target.x / magn;
-	this.direction.y = target.y / magn;
-};
-
-//Called every frame
+//Call every frame
 function update(){
 	//buttons
 	if(pause){
@@ -219,8 +229,7 @@ function update(){
 			user.highScore = highScore;
 
 			if(isRecord){
-				saveRecord();
-				console.log("saveRecord();");
+				shareRecord();
 			}
 
 			firstPauseFrame = false;
@@ -400,24 +409,24 @@ function backClick(){
 	shop = false;
 }
 
-
-function leadersClick(){
-	vkBridge.sendPromise("VKWebAppShowLeaderBoardBox", {user_result:highScore})
-		.then(data => console.log(data.success))
-        .catch(error => console.log(error));
-}
-
 //Flags
 var firstPauseFrame = false, pause = true, shop = false, isRecord = false;
-
 var highScore = user.highScore, score = 0, total = user.totalScore;
 
-var meteorites = new Array(3);
-meteorites[0] = new Meteorite();
-meteorites[1] = new Meteorite();
-meteorites[2] = new Meteorite();
 
-var autoInterval = setInterval(update, 15);
-var autoInterval2 = setInterval(makeMeteorite, 1000);
-document.addEventListener("mousedown", clickSpaceOrMouse);
-document.addEventListener("keydown", (event) => {if(event.code == 'Space') clickSpaceOrMouse()});
+var meteorites = new Array();
+
+function awake(){
+	for(let i = 0; i < 4; i++){
+		meteorites.push(new Meteorite());
+	}
+
+
+
+	let autoInterval = setInterval(update, 15);
+	let autoInterval2 = setInterval(makeMeteorite, 1000);
+	document.addEventListener("mousedown", clickSpaceOrMouse);
+	document.addEventListener("keydown", (event) => {if(event.code == 'Space') clickSpaceOrMouse()});
+}
+
+awake();
