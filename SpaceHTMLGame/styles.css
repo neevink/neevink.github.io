@@ -1,5 +1,6 @@
-body{
+html, body{
 	margin: 0;
+    overflow: hidden;
 }
 
 button{
@@ -23,7 +24,7 @@ button:active {
 	transform: translate(70vw, -60px);
 }
 
-.leaders-menu{
+.share-menu{
 	transform: translate(0, -60px);
 }
 

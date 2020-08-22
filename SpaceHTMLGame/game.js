@@ -1,10 +1,9 @@
-//WEB
+// VK
 
 var user = {
 	id:0,
 	totalScore: 0,
-	highScore: 0,
-	accessToken: null
+	highScore: 0
 }
 
 vkBridge.send("VKWebAppInit", {});
@@ -18,14 +17,14 @@ vkBridge
 		console.log(error);
 	});
 
-vkBridge.send("VKWebAppGetAuthToken", {"app_id": 7571672, "scope": ""})
-	.then(data => {
-		user.accessToken = data.access_token;
-		console.log(data);
-	})
-	.catch(error => {
-		console.log(error);
-	});
+//vkBridge.send("VKWebAppGetAuthToken", {"app_id": 7571672, "scope": ""})
+//	.then(data => {
+//		user.accessToken = data.access_token;
+//		console.log(data);
+//	})
+//	.catch(error => {
+//		console.log(error);
+//	});
 
 function loadSaves(){
 	function checkIsNumber(x) {
@@ -70,41 +69,40 @@ function saveSaves(){
 		});
 }
 
-function saveRecord(){
-	vkBridge.sendPromise("VKWebAppCallAPIMethod", {
-        "method": "secure.addAppEvent",
-        "params": {
-            "user_id": user.id,
-            "v":"5.122",
-            "activity_id": 2,
-            "value": user.highScore,
-            "access_token": user.accessToken,
-            "client_secret": "H92k6XprsWeIkOVrzOhZ"
-        }
-    })
-    	.then(data => {
-			console.log(data);
-		})
-		.catch(error => {
-			console.log(error);
-		});;
+//function saveRecord(){
+//	vkBridge.sendPromise("VKWebAppCallAPIMethod", {
+//        "method": "secure.addAppEvent",
+//        "params": {
+//            "user_id": user.id,
+//            "v":"5.122",
+//            "activity_id": 2,
+//            "value": user.highScore,
+//            "access_token": user.accessToken,
+//            "client_secret": null
+//        }
+//    })
+//    	.then(data => {
+//			console.log(data);
+//		})
+//		.catch(error => {
+//			console.log(error);
+//		});;
+//}
+
+function shareRecord(){
+	vkBridge.send("VKWebAppShowWallPostBox", {"message": "У меня новый рекорд в игре Космическая битва!\nМой новый рекорд: " + user.highScore + "! Присоединись: https://vk.com/app7571672"} );
 }
 
 loadSaves();
 console.log(user);
 
-function shareRecord(){
-	vkBridge.send("VKWebAppShowWallPostBox", {"message": "У меня новый рекорд в игре Космическая битва! Мой новый рекорд: " + user.highScore + "! Присоединись: https://vk.com/app7571672_212141958"} );
-}
-
-//GAME
+// GAME
 
 const cnvs = document.getElementById("main-canvas"),
 	ctx     = cnvs.getContext('2d');
 
 cnvs.width = window.innerWidth;
 cnvs.height = window.innerHeight;
-
 ctx.font = "35px Roboto";
 
 const shopButton = document.getElementById("shop-menu");
@@ -212,10 +210,9 @@ function Meteorite() {
 	this.direction.y = target.y / magn;
 };
 
-var firstPauseFrame = false;
-
-//Frame
+//Called every frame
 function update(){
+	//buttons
 	if(pause){
 		if(firstPauseFrame){
 			user.totalScore = total;
@@ -410,7 +407,10 @@ function leadersClick(){
         .catch(error => console.log(error));
 }
 
-var highScore = user.highScore, score = 0, pause = true, shop = false, isRecord = false, total = user.totalScore;
+//Flags
+var firstPauseFrame = false, pause = true, shop = false, isRecord = false;
+
+var highScore = user.highScore, score = 0, total = user.totalScore;
 
 var meteorites = new Array(3);
 meteorites[0] = new Meteorite();
