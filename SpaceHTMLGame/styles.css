@@ -1,7 +1,7 @@
 html, body{
 	margin: 0;
-    overflow: hidden;
-    font-family: Roboto;
+   	overflow: hidden;
+    	font-family: Roboto;
 }
 
 .bttn{
@@ -18,7 +18,7 @@ html, body{
 }
 
 .bttn:active {
-  background-color: black;
+  	background-color: black;
 }
 
 .shop-menu{
@@ -42,13 +42,6 @@ html, body{
 	overflow-y: scroll;
 	scrollbar-color: #334769 #2C3052;
 	scrollbar-width: thin;
-
-/*
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	flex-direction: column;
-*/
 }
 
 .shop-element{
