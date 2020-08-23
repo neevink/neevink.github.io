@@ -118,6 +118,7 @@ ctx.font = "35px Roboto";
 const shopButton = document.getElementById("shop-menu");
 const replayButton = document.getElementById("replay-menu");
 const backButton = document.getElementById("back-menu");
+const shopPannel = document.getElementById("shop-pannel");
 
 const spaceshipImg = new Image();
 spaceshipImg.src = "graphics/spaceship.png";
@@ -241,12 +242,14 @@ function update(){
 			replayButton.style.visibility = 'visible';
 
 			backButton.style.visibility = 'hidden';
+			shopPannel.style.visibility = 'hidden';
 		}
 		else{
 			shopButton.style.visibility = 'hidden';
 			replayButton.style.visibility = 'hidden';
 
 			backButton.style.visibility = 'visible';
+			shopPannel.style.visibility = 'visible';
 		}
 	}
 	else{

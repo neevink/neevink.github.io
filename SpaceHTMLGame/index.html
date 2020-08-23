@@ -10,10 +10,36 @@
 <body>
 	<div class="container">
 		<canvas id="main-canvas" width="100vw" height="100vh"></canvas>
-		<button id="share-menu" class="share-menu" onclick="shareRecordClick(); this.blur();">Share record</button> 
-		<button id="shop-menu" class="shop-menu" onclick="shopClick(); this.blur();">shop</button>
-		<button id="back-menu" class="shop-menu" onclick="backClick(); this.blur();">back</button> 
-		<button id="replay-menu" class="replay-menu" onclick="replayClick(); this.blur();">replay</button> 
+		<button id="share-menu" class="bttn share-menu" onclick="shareRecordClick(); this.blur();">Share record</button> 
+		<button id="shop-menu" class="bttn shop-menu" onclick="shopClick(); this.blur();">shop</button>
+		<button id="back-menu" class="bttn shop-menu" onclick="backClick(); this.blur();">back</button> 
+		<button id="replay-menu" class="bttn replay-menu" onclick="replayClick(); this.blur();">replay</button> 
+		<div id="shop-pannel" class="shop-container">
+			<div class="shop-element">
+				 <img class="shop-img" src="graphics/spaceship.png">
+				 <div class="shop-element-inner">
+				 	<button class="bttn">selected</button>
+				 </div>
+			</div>
+			<div class="shop-element">
+				 <img class="shop-img" src="graphics/spaceship.png">
+				 <div class="shop-element-inner">
+				 	<button class="bttn">200</button>
+				 </div>
+			</div>
+			<div class="shop-element">
+				 <img class="shop-img" src="graphics/spaceship.png">
+				 <div class="shop-element-inner">
+				 	<button class="bttn">200</button>
+				 </div>
+			</div>
+			<div class="shop-element">
+				 <img class="shop-img" src="graphics/spaceship.png">
+				 <div class="shop-element-inner">
+				 	<button class="bttn">1000</button>
+				 </div>
+			</div>
+		</div>
 	</div>
 	<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
 	<script type="text/javascript" src="game.js"></script>
