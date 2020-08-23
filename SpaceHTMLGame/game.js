@@ -17,6 +17,15 @@ vkBridge
 		console.log(error);
 	});
 
+vkBridge
+	.send("VKWebAppResizeWindow", {"width": 720, "height": 1280})
+	.then(data => {
+		console.log(data);
+	})
+	.catch(error => {
+		console.log(error);
+	});
+
 //vkBridge.send("VKWebAppGetAuthToken", {"app_id": 7571672, "scope": ""})
 //	.then(data => {
 //		user.accessToken = data.access_token;
@@ -135,7 +144,7 @@ var spaceship = {
 	w: cnvs.width*0.18,
 	h: cnvs.width*0.18,
 	directionRight : true,
-	speed: cnvs.width/80,
+	speed: cnvs.width/90,
 	img : spaceshipImg,
 	draw: () => {
 		ctx.drawImage(spaceship.img, spaceship.x - spaceship.w/2, spaceship.y - spaceship.h/2, spaceship.w, spaceship.h);
