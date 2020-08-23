@@ -20,6 +20,8 @@ vkBridge
 vkBridge
 	.send("VKWebAppResizeWindow", {"width": 720, "height": 1280})
 	.then(data => {
+		cnvs.width = window.innerWidth;
+		cnvs.height = window.innerHeight;
 		console.log(data);
 	})
 	.catch(error => {
