@@ -135,7 +135,7 @@ var spaceship = {
 	w: cnvs.width*0.18,
 	h: cnvs.width*0.18,
 	directionRight : true,
-	speed: cnvs.width/90,
+	speed: cnvs.width/90*0.7,
 	img : spaceshipImg,
 	draw: () => {
 		ctx.drawImage(spaceship.img, spaceship.x - spaceship.w/2, spaceship.y - spaceship.h/2, spaceship.w, spaceship.h);
@@ -150,7 +150,7 @@ function Meteorite() {
 	this.h = cnvs.width/8;
 	this.direction = { x:0, y:0 };
 	this.angle = getRandomInt(360);
-	this.speed = (cnvs.width + cnvs.height) * 0.0088;
+	this.speed = cnvs.width/90*0.7;
 	this.rotationSpeed = 3-getRandomInt(6);
 	this.receivedCoin = false;
 	this.isCoin = false;
