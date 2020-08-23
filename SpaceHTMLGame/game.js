@@ -17,17 +17,6 @@ vkBridge
 		console.log(error);
 	});
 
-vkBridge
-	.send("VKWebAppResizeWindow", {"width": 720, "height": 1280})
-	.then(data => {
-		cnvs.width = window.innerWidth;
-		cnvs.height = window.innerHeight;
-		console.log(data);
-	})
-	.catch(error => {
-		console.log(error);
-	});
-
 //vkBridge.send("VKWebAppGetAuthToken", {"app_id": 7571672, "scope": ""})
 //	.then(data => {
 //		user.accessToken = data.access_token;
@@ -161,7 +150,7 @@ function Meteorite() {
 	this.h = cnvs.width/8;
 	this.direction = { x:0, y:0 };
 	this.angle = getRandomInt(360);
-	this.speed = (cnvs.width + cnvs.height) * 0.007;
+	this.speed = (cnvs.width + cnvs.height) * 0.0088;
 	this.rotationSpeed = 3-getRandomInt(6);
 	this.receivedCoin = false;
 	this.isCoin = false;
