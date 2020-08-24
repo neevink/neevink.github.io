@@ -39,6 +39,9 @@ function loadSaves(){
 
 	function checkIsSaves(x){
 		if(x){
+			while(x < boughtSpaceships.length){
+				x+='n';
+			}
 			return x;
 		}
 		else{
@@ -52,13 +55,13 @@ function loadSaves(){
 
   			user.totalScore = checkIsNumber(data.keys[0].value);
   			user.highScore = checkIsNumber(data.keys[1].value);
-  			user.boughtSpaceships = 
+  			user.boughtSpaceships = checkIsSaves(data.keys[2].value);
 
 			total = user.totalScore;
 			highScore = user.highScore;
 		})
 		.catch(error => {
-			console.log("Something went wrong");
+			console.log(error);
 		});
 }
 
@@ -139,8 +142,23 @@ const replayButton = document.getElementById("replay-menu");
 const backButton = document.getElementById("back-menu");
 const shopPannel = document.getElementById("shop-pannel");
 
-const spaceshipImg = new Image();
-spaceshipImg.src = "graphics/spaceship.png";
+const buyButtons = [];
+
+for(let i = 0; i < 4; i++){
+	buyButtons.push(document.getElementById("button-buy-" + i.toString()));
+}
+
+const spaceship0Img = new Image();
+spaceship0Img.src = "graphics/spaceship.png";
+
+const spaceship1Img = new Image();
+spaceship1Img.src = "graphics/spaceship-pink.png";
+
+const spaceship2Img = new Image();
+spaceship2Img.src = "graphics/spaceship-green.png";
+
+const spaceship3Img = new Image();
+spaceship3Img.src = "graphics/spaceship-violet.png";
 
 const meteoriteImg = new Image();
 meteoriteImg.src = "graphics/meteorite.png";
@@ -156,7 +174,7 @@ var spaceship = {
 	h: cnvs.width*0.18,
 	directionRight : true,
 	speed: cnvs.width/90*0.7,
-	img : spaceshipImg,
+	img : spaceship0Img,
 	draw: () => {
 		ctx.drawImage(spaceship.img, spaceship.x - spaceship.w/2, spaceship.y - spaceship.h/2, spaceship.w, spaceship.h);
 	}
@@ -214,17 +232,17 @@ var pauseMenu = {
 
 		ctx.textAlign = "left";
 		ctx.fillStyle = "#FFFFFF";
-		ctx.fillText("total: " + total, 10, 50);
+		ctx.fillText("всего: " + total, 10, 50);
 		
 		ctx.fillStyle = "#FFFFFF";
 		ctx.textAlign = "center";
-		ctx.fillText("score: " + score, cnvs.width/2, cnvs.height/2);
+		ctx.fillText("очков: " + score, cnvs.width/2, cnvs.height/2);
 
 		if(isRecord){
-			ctx.fillText("new record!", cnvs.width/2, cnvs.height/2 - 50);
+			ctx.fillText("новый рекорд!", cnvs.width/2, cnvs.height/2 - 50);
 		}
 		else{
-			ctx.fillText("high score: " + highScore, cnvs.width/2, cnvs.height/2 - 50);
+			ctx.fillText("рекорд: " + highScore, cnvs.width/2, cnvs.height/2 - 50);
 		}
 	}
 }
@@ -236,7 +254,7 @@ var shopMenu = {
 
 		ctx.textAlign = "left";
 		ctx.fillStyle = "#FFFFFF";
-		ctx.fillText("total: " + total, 10, 50);
+		ctx.fillText("всего: " + total, 10, 50);
 	}
 }
 
@@ -360,7 +378,7 @@ function updateScreen(){
 
 	ctx.textAlign = "left";
 	ctx.fillStyle = "#FFFFFF";
-	ctx.fillText("score: " + score, 10, 50);
+	ctx.fillText("очков: " + score, 10, 50);
 
 	if(pause && !shop){
 		pauseMenu.draw();
@@ -390,7 +408,15 @@ function magnitude(x, y){
 }
 
 function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
+ 	return Math.floor(Math.random() * Math.floor(max));
+}
+
+String.prototype.replaceAt = function(index, replacement) {
+ 	return this.substr(0, index) + replacement + this.substr(index + replacement.length);
+}
+
+String.prototype.getChar = function(index) {
+ 	return this.substr(index, index);
 }
 
 function makeMeteorite(){
@@ -422,13 +448,62 @@ function replayClick(){
 
 function shopClick(){
 	shop = true;
-
-	total = 0;
-	highScore = 0;
 }
 
 function backClick(){
 	shop = false;
+}
+
+function buyClick(indx, price){
+	if(user.boughtSpaceships[indx] == 'b'){
+		console.log(user.boughtSpaceships[indx]);
+		for(let i = 0; i < user.boughtSpaceships.length; i++){
+			if(user.boughtSpaceships[i] == 's'){
+				console.log(i);
+				console.log(user.boughtSpaceships[i]);
+				user.boughtSpaceships = user.boughtSpaceships.replaceAt(i, 'b');
+				console.log(user.boughtSpaceships[i]);
+			}
+		}
+		user.boughtSpaceships = user.boughtSpaceships.replaceAt(indx, 's');
+
+		eval("spaceship.img = spaceship" + indx + "Img;");
+		updateShop();
+		saveSaves();
+		return;
+	}
+	if(user.boughtSpaceships[indx] == 'n'){
+		console.log(user.boughtSpaceships[indx]);
+		if(user.totalScore >= price){
+			user.totalScore -= price;
+			total -= price;
+
+			for(let i = 0; i < user.boughtSpaceships.length; i++){
+				if(user.boughtSpaceships[i] == 's'){
+					console.log(i);
+					user.boughtSpaceships = user.boughtSpaceships.replaceAt(i, 'b');
+				}
+			}
+			user.boughtSpaceships = user.boughtSpaceships.replaceAt(indx, 's');
+		}
+		eval("spaceship.img = spaceship" + indx + "Img;");
+		updateShop();
+		saveSaves();
+		return;
+	}
+}
+
+function updateShop(){
+	for(let i = 0; i < buyButtons.length; i++){
+		if(user.boughtSpaceships[i] == 's'){
+			buyButtons[i].textContent = "выбрано";
+			buyButtons[i].style.backgroundColor = "green";
+		}
+		if(user.boughtSpaceships[i] == 'b'){
+			buyButtons[i].textContent = "выбрать";
+			buyButtons[i].style.backgroundColor = "#555";
+		}
+	}
 }
 
 //Flags
@@ -439,7 +514,7 @@ var highScore = user.highScore, score = 0, total = user.totalScore;
 var meteorites = new Array();
 
 function awake(){
-	for(let i = 0; i < 4; i++){
+	for(let i = 0; i < 5; i++){
 		meteorites.push(new Meteorite());
 	}
 
@@ -452,3 +527,4 @@ function awake(){
 }
 
 awake();
+updateShop();

@@ -10,33 +10,33 @@
 <body>
 	<div class="container">
 		<canvas id="main-canvas" width="100vw" height="100vh"></canvas>
-		<button id="share-menu" class="bttn share-menu" onclick="shareRecordClick(); this.blur();">Share record</button> 
-		<button id="shop-menu" class="bttn shop-menu" onclick="shopClick(); this.blur();">shop</button>
-		<button id="back-menu" class="bttn shop-menu" onclick="backClick(); this.blur();">back</button> 
-		<button id="replay-menu" class="bttn replay-menu" onclick="replayClick(); this.blur();">replay</button> 
+		<button id="share-menu" class="bttn share-menu" onclick="shareRecordClick(); this.blur();">поделиться</button> 
+		<button id="shop-menu" class="bttn shop-menu" onclick="shopClick(); this.blur();">магазин</button>
+		<button id="back-menu" class="bttn shop-menu" onclick="backClick(); this.blur();">назад</button> 
+		<button id="replay-menu" class="bttn replay-menu" onclick="replayClick(); this.blur();">играть</button> 
 		<div id="shop-pannel" class="shop-container">
 			<div class="shop-element">
 				 <img class="shop-img" src="graphics/spaceship.png">
 				 <div class="shop-element-inner">
-				 	<button class="bttn" onclick="">selected</button>
+				 	<button id="button-buy-0" class="bttn" onclick="buyClick(0, 0); this.blur();">0</button>
 				 </div>
 			</div>
 			<div class="shop-element">
 				 <img class="shop-img" src="graphics/spaceship-pink.png">
 				 <div class="shop-element-inner">
-				 	<button class="bttn">200</button>
+				 	<button id="button-buy-1" class="bttn" onclick="buyClick(1, 5); this.blur();">5</button>
 				 </div>
 			</div>
 			<div class="shop-element">
 				 <img class="shop-img" src="graphics/spaceship-green.png">
 				 <div class="shop-element-inner">
-				 	<button class="bttn">200</button>
+				 	<button id="button-buy-2" class="bttn" onclick="buyClick(2, 5); this.blur();">5</button>
 				 </div>
 			</div>
 			<div class="shop-element">
 				 <img class="shop-img" src="graphics/spaceship-violet.png">
 				 <div class="shop-element-inner">
-				 	<button class="bttn">1000</button>
+				 	<button id="button-buy-3" class="bttn" onclick="buyClick(3, 5); this.blur();">5</button>
 				 </div>
 			</div>
 		</div>
