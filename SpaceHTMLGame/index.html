@@ -7,13 +7,14 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet"> 
 </head>
-<body>
-	<div class="container">
+<body id="main-body">
+	<div id="container" class="container">
 		<canvas id="main-canvas" width="100vw" height="100vh"></canvas>
-		<button id="share-menu" class="bttn share-menu" onclick="shareRecordClick(); this.blur();">поделиться</button> 
-		<button id="shop-menu" class="bttn shop-menu" onclick="shopClick(); this.blur();">магазин</button>
-		<button id="back-menu" class="bttn shop-menu" onclick="backClick(); this.blur();">назад</button> 
-		<button id="replay-menu" class="bttn replay-menu" onclick="replayClick(); this.blur();">играть</button> 
+		<button id="shop-bttn" class="bttn shop-bttn" onclick="shopClick(); this.blur();">магазин</button>
+		<button id="back-bttn" class="bttn shop-bttn" onclick="backClick(); this.blur();">назад</button>
+		<button id="share-bttn" class="bttn share-bttn" visible="hidden" onclick="shareRecordClick(); this.blur();">поделиться</button>
+		<button id="replay-bttn" class="bttn replay-bttn" onclick="replayClick(); this.blur();">играть</button>
+		<div>
 		<div id="shop-pannel" class="shop-container">
 			<div class="shop-element">
 				 <img class="shop-img" src="graphics/spaceship.png">
@@ -39,6 +40,7 @@
 				 	<button id="button-buy-3" class="bttn" onclick="buyClick(3, 5); this.blur();">5</button>
 				 </div>
 			</div>
+		</div>
 		</div>
 	</div>
 	<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>

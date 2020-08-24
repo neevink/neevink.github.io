@@ -39,7 +39,7 @@ function loadSaves(){
 
 	function checkIsSaves(x){
 		if(x){
-			while(x < boughtSpaceships.length){
+			while(x < user.boughtSpaceships.length){
 				x+='n';
 			}
 			return x;
@@ -133,14 +133,22 @@ console.log(user);
 const cnvs = document.getElementById("main-canvas"),
 	ctx     = cnvs.getContext('2d');
 
-cnvs.width = window.innerWidth;
 cnvs.height = window.innerHeight;
+cnvs.width = cnvs.height/2;
+
+document.getElementById("main-body").width = window.innerWidth;
+document.getElementById("main-body").height = window.innerHeight;
+
 ctx.font = "35px Roboto";
 
-const shopButton = document.getElementById("shop-menu");
-const replayButton = document.getElementById("replay-menu");
-const backButton = document.getElementById("back-menu");
+const shopButton = document.getElementById("shop-bttn");
+const replayButton = document.getElementById("replay-bttn");
+const backButton = document.getElementById("back-bttn");
+const shareButton = document.getElementById("share-bttn");
 const shopPannel = document.getElementById("shop-pannel");
+
+shopPannel.width = cnvs.width;
+shopPannel.height = cnvs.height;
 
 const buyButtons = [];
 
@@ -216,11 +224,11 @@ var background = {
 		ctx.fillRect(0, 0, cnvs.width, cnvs.height);
 
 		ctx.fillStyle = "#334769";
-		ctx.fillRect(cnvs.width * 0.25, spaceship.y - 20, cnvs.width * 0.5, 40);
+		ctx.fillRect(cnvs.width * 0.1, spaceship.y - 20, cnvs.width * 0.8, 40);
 
 		ctx.beginPath();
-		ctx.arc(cnvs.width * 0.25, spaceship.y, 20, 0, 2 * Math.PI);
-		ctx.arc(cnvs.width * 0.75, spaceship.y, 20, 0, 2 * Math.PI);
+		ctx.arc(cnvs.width * 0.1, spaceship.y, 20, 0, 2 * Math.PI);
+		ctx.arc(cnvs.width * 0.9, spaceship.y, 20, 0, 2 * Math.PI);
 		ctx.fill();
 	}
 }
@@ -298,7 +306,7 @@ function update(){
 
 	//spaceship
 	if(!pause && spaceship.directionRight){
-		if(spaceship.x < cnvs.width * 0.75){
+		if(spaceship.x < cnvs.width * 0.9){
 			spaceship.x+=spaceship.speed;
 		}
 		else{
@@ -306,7 +314,7 @@ function update(){
 		}
 	}
 	else{
-		if(!pause && spaceship.x > cnvs.width * 0.25){
+		if(!pause && spaceship.x > cnvs.width * 0.1){
 			spaceship.x-=spaceship.speed;
 		}
 		else{
