@@ -37,12 +37,22 @@ function loadSaves(){
 	  	}
 	}
 
+	function checkIsSaves(x){
+		if(x){
+			return x;
+		}
+		else{
+			return user.boughtSpaceships;
+		}
+	}
+
 	vkBridge.send("VKWebAppStorageGet", {"keys": ["totalScore", "highScore", "boughtSpaceships"]})
 		.then(data => {
 			console.log(data);
 
   			user.totalScore = checkIsNumber(data.keys[0].value);
   			user.highScore = checkIsNumber(data.keys[1].value);
+  			user.boughtSpaceships = 
 
 			total = user.totalScore;
 			highScore = user.highScore;
@@ -62,6 +72,14 @@ function saveSaves(){
 		});
 
 	vkBridge.send("VKWebAppStorageSet", {"key": "highScore", "value": user.highScore.toString()})
+		.then(data => {
+			console.log("Success!");
+		})
+		.catch(error => {
+			console.log("Something went wrong");
+		});
+
+	vkBridge.send("VKWebAppStorageSet", {"key": "boughtSpaceships", "value": user.boughtSpaceships})
 		.then(data => {
 			console.log("Success!");
 		})
