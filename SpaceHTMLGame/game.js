@@ -3,7 +3,8 @@
 var user = {
 	id:0,
 	totalScore: 0,
-	highScore: 0
+	highScore: 0,
+	boughtSpaceships:"snnn" //selected, not bought, bought
 }
 
 vkBridge.send("VKWebAppInit", {});
@@ -36,7 +37,7 @@ function loadSaves(){
 	  	}
 	}
 
-	vkBridge.send("VKWebAppStorageGet", {"keys": ["totalScore", "highScore"]})
+	vkBridge.send("VKWebAppStorageGet", {"keys": ["totalScore", "highScore", "boughtSpaceships"]})
 		.then(data => {
 			console.log(data);
 
@@ -151,7 +152,7 @@ function Meteorite() {
 	this.h = cnvs.width/8;
 	this.direction = { x:0, y:0 };
 	this.angle = getRandomInt(360);
-	this.speed = cnvs.width/90*0.7;
+	this.speed = cnvs.width/90*0.8;
 	this.rotationSpeed = 3-getRandomInt(6);
 	this.receivedCoin = false;
 	this.isCoin = false;
@@ -427,7 +428,7 @@ function awake(){
 
 
 	let autoInterval = setInterval(update, 15);
-	let autoInterval2 = setInterval(makeMeteorite, 1000);
+	let autoInterval2 = setInterval(makeMeteorite, 1400);
 	document.addEventListener("mousedown", clickSpaceOrMouse);
 	document.addEventListener("keydown", (event) => {if(event.code == 'Space') clickSpaceOrMouse()});
 }
