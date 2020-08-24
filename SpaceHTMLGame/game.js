@@ -493,10 +493,10 @@ function buyClick(indx, price){
 				}
 			}
 			user.boughtSpaceships = user.boughtSpaceships.replaceAt(indx, 's');
+			eval("spaceship.img = spaceship" + indx + "Img;");
+			updateShop();
+			saveSaves();
 		}
-		eval("spaceship.img = spaceship" + indx + "Img;");
-		updateShop();
-		saveSaves();
 		return;
 	}
 }
@@ -522,14 +522,14 @@ var highScore = user.highScore, score = 0, total = user.totalScore;
 var meteorites = new Array();
 
 function awake(){
-	for(let i = 0; i < 5; i++){
+	for(let i = 0; i < 7; i++){
 		meteorites.push(new Meteorite());
 	}
 
 
 
 	let autoInterval = setInterval(update, 15);
-	let autoInterval2 = setInterval(makeMeteorite, 1400);
+	let autoInterval2 = setInterval(makeMeteorite, 1000);
 	document.addEventListener("mousedown", clickSpaceOrMouse);
 	document.addEventListener("keydown", (event) => {if(event.code == 'Space') clickSpaceOrMouse()});
 }
