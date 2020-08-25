@@ -210,7 +210,7 @@ function Meteorite() {
 	};
 
 	let target = {
-		x: cnvs.width * 0.3 + getRandomInt(cnvs.width * 0.4) - this.x,
+		x: cnvs.width * 0.2 + getRandomInt(cnvs.width * 0.6) - this.x,
 		y: spaceship.y + spaceship.h/2 - this.y
 	};
 	let magn = magnitude(target.x, target.y);
@@ -260,7 +260,7 @@ var pauseMenu = {
 	draw: () =>{
 		ctx.fillStyle = "#2C3052";
 		ctx.fillRect(0, 0, cnvs.width, cnvs.height);
-
+pause
 		ctx.textAlign = "left";
 		ctx.fillStyle = "#FFFFFF";
 		ctx.fillText("всего: " + total, 10, 50);
@@ -354,7 +354,7 @@ function update(){
 				meteorites[i].x += meteorites[i].direction.x * meteorites[i].speed;
 				meteorites[i].y += meteorites[i].direction.y * meteorites[i].speed;
 	
-				if(spaceship.enable && magnitude(spaceship.x - meteorites[i].x, spaceship.y - meteorites[i].y) < 35){
+				if(spaceship.enable && magnitude(spaceship.x - meteorites[i].x, spaceship.y - meteorites[i].y) < spaceship.w*0.6){
 					meteorites[i].enable = false;
 					if(meteorites[i].isCoin){
 						score+=10;
@@ -397,18 +397,12 @@ function updateScreen(){
 	for(i = 0; i < meteorites.length; i++){
 		if(meteorites[i].enable){
 			meteorites[i].draw();
-			ctx.fillStyle = "#000000";
-			ctx.fillRect(meteorites[i].x-1, meteorites[i].y-1, 2, 2);
 		}
 	}
 
 	if(spaceship.enable){
 		spaceship.draw();
 	}
-
-
-	ctx.fillStyle = "#000000";
-	ctx.fillRect(spaceship.x-1, spaceship.y-1, 2, 2);
 
 	ctx.textAlign = "left";
 	ctx.fillStyle = "#FFFFFF";
