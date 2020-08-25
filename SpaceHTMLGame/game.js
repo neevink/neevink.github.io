@@ -233,6 +233,29 @@ var background = {
 	}
 }
 
+var pauseMenuScoreTextAnimation = { 
+	size: 70, 
+	addition: true, 
+	getNewSize:() =>{
+		if(pauseMenuScoreTextAnimation.addition){
+			pauseMenuScoreTextAnimation.size+=0.1;
+		}
+		else{
+			pauseMenuScoreTextAnimation.size-=0.1;
+		}
+
+		if(pauseMenuScoreTextAnimation.addition && pauseMenuScoreTextAnimation.size >= 80){
+			pauseMenuScoreTextAnimation.addition = false;
+		}
+
+		if(!pauseMenuScoreTextAnimation.addition && pauseMenuScoreTextAnimation.size <= 70){
+			pauseMenuScoreTextAnimation.addition = true;
+		}
+
+		return pauseMenuScoreTextAnimation.size;
+	}
+};
+
 var pauseMenu = {
 	draw: () =>{
 		ctx.fillStyle = "#2C3052";
@@ -241,17 +264,20 @@ var pauseMenu = {
 		ctx.textAlign = "left";
 		ctx.fillStyle = "#FFFFFF";
 		ctx.fillText("всего: " + total, 10, 50);
-		
+
+		ctx.font = pauseMenuScoreTextAnimation.getNewSize()+"px Roboto";
 		ctx.fillStyle = "#FFFFFF";
 		ctx.textAlign = "center";
-		ctx.fillText("очков: " + score, cnvs.width/2, cnvs.height/2);
+		ctx.fillText(score, cnvs.width/2, cnvs.height/2 - 50);
 
+		ctx.font = "25px Roboto";
 		if(isRecord){
-			ctx.fillText("новый рекорд!", cnvs.width/2, cnvs.height/2 - 50);
+			ctx.fillText("новый рекорд!", cnvs.width/2, cnvs.height/2 + 10);
 		}
 		else{
-			ctx.fillText("рекорд: " + highScore, cnvs.width/2, cnvs.height/2 - 50);
+			ctx.fillText("рекорд: " + highScore, cnvs.width/2, cnvs.height/2 + 10);
 		}
+		ctx.font = "35px Roboto";
 	}
 }
 
@@ -351,7 +377,7 @@ function update(){
 					}
 				}
 	
-				if(!pause && !meteorites[i].receivedCoin && meteorites[i].y > spaceship.y + 50){
+				if(!pause && !meteorites[i].receivedCoin && !meteorites[i].isCoin && meteorites[i].y > spaceship.y + 50){
 					meteorites[i].receivedCoin = true;
 					score++;
 				}
@@ -522,14 +548,14 @@ var highScore = user.highScore, score = 0, total = user.totalScore;
 var meteorites = new Array();
 
 function awake(){
-	for(let i = 0; i < 7; i++){
+	for(let i = 0; i < 10; i++){
 		meteorites.push(new Meteorite());
 	}
 
 
 
 	let autoInterval = setInterval(update, 15);
-	let autoInterval2 = setInterval(makeMeteorite, 1000);
+	let autoInterval2 = setInterval(makeMeteorite, 700);
 	document.addEventListener("mousedown", clickSpaceOrMouse);
 	document.addEventListener("keydown", (event) => {if(event.code == 'Space') clickSpaceOrMouse()});
 }
