@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /index.html
+
+Sitemap: https://neevink.github.io/sitemap.xml
